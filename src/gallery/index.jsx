@@ -67,7 +67,7 @@ class Gallery extends Component {
                     const visibleFileIndex = this._findFileIndex(id)
                     if (visibleFileIndex < 0) {
                         visibleFiles.push({ id, fromServer: true })
-                    } 
+                    }
                 }
                 this._updateVisibleFileStatus(id, status)
             }
@@ -76,6 +76,12 @@ class Gallery extends Component {
 
     componentDidMount() {
         this.props.uploader.on('statusChange', this._onStatusChange)
+
+        this.setState({
+          visibleFiles: this.props.uploader.methods.getUploads().filter(
+                  function (x){return x.status==='upload successful'}).map(
+                      function (x){return {id: x.id, status: x.status}})
+        });
     }
 
     componentWillUnmount() {
