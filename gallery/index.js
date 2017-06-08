@@ -128,7 +128,11 @@ var Gallery = function (_Component) {
                 }
                 _this._updateVisibleFileStatus(id, status);
             }
+
+            _this.props.onStatusChangeCallback(id, oldStatus, status);
+            
         };
+
         return _this;
     }
 
